@@ -2,6 +2,7 @@ package assignment1;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+
 import ui.UIAuxiliaryMethods;
 
 
@@ -66,10 +67,14 @@ public class Processing {
         int numberOfClusters = readInt(in.nextLine());
         int numberOfRows = readInt(in.nextLine());
         int numberOfColoms = readInt(in.nextLine());
-        String[] headers = readStrings(in.nextLine(),  numberOfColoms);
+        String[] all = readStrings(in.nextLine(),  numberOfColoms);
+        String type = all[0];
+        String[] headers = new String[all.length-1];
+        for(int i=0; i<headers.length; i++)
+        	headers[i] = all[i+1];
         UnitRow data = readData(in,  numberOfColoms,  numberOfRows);
-        Dataset dataset = new Dataset(numberOfClusters, numberOfRows, numberOfColoms, headers, data);
-        String index = dataset.getIndexAtPosition(1);
+        Dataset dataset = new Dataset(numberOfClusters, numberOfRows, numberOfColoms, type, headers, data);
+        String index = dataset.getIndexAtPosition(0);
         double value = dataset.getMaximumOfIndex(index);
         out.printf("The maximum value of the variable `%s' is %.6f",index, value);
 		in.close();

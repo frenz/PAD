@@ -2,20 +2,20 @@ package assignment1;
 
 public class Dataset {
 	private int numberOfCluster, numberOfRow, numberOfColoms;
+	private String type;
 	private String[] indexArray;
 	private UnitRow unitRow;
 
 	
-	Dataset(int numberOfCluster, int numberOfRow, int numberOfColoms, String[] indexArray, UnitRow unitRow) {
+	Dataset(int numberOfCluster, int numberOfRow, int numberOfColoms, String index, String[] indexArray , UnitRow unitRow) {
 		this.numberOfCluster = numberOfCluster;
 		this.numberOfRow = numberOfRow;
 		this.numberOfColoms = numberOfColoms;
+		this.type = index;
 		this.indexArray = indexArray;
 		this.unitRow =unitRow;
 	}
-	
-	
-	
+
 	public int getNumberOfCluster() {
 		return numberOfCluster;
 	}
@@ -28,6 +28,9 @@ public class Dataset {
 		return numberOfColoms;
 	}
 	
+	public String getType() {
+		return type;
+	}
 	
 	public String[] getIndexArray() {
 		return indexArray;
@@ -45,6 +48,9 @@ public class Dataset {
 		this.numberOfColoms = numberOfColoms;
 	}
 	
+	public void setIndex(String type) {
+		this.type = type;
+	}
 	
 	public void setIndexArray(String[] indexArray) {
 		this.indexArray = indexArray;
@@ -61,7 +67,7 @@ public class Dataset {
 		return -1;
 	}
 	public double  getMaximumOfIndex(String s){
-		return getMaximumOfIndex(getIndexOfIndex(s)-1);
+		return getMaximumOfIndex(getIndexOfIndex(s));
 	}
 	public double  getMaximumOfIndex(int value){
 		double max= Double.MIN_VALUE;
