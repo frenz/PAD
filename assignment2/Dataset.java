@@ -2,15 +2,19 @@ package assignment2;
 
 import java.util.Arrays;
 
+
 public class Dataset {
 	private int numberOfCluster, numberOfRow, numberOfColoms;
+	private String type;
 	private String[] indexArray;
 	private UnitRow unitRow;
 
-	Dataset(int numberOfCluster, int numberOfRow, int numberOfColoms, String[] indexArray, UnitRow unitRow) {
+
+	Dataset(int numberOfCluster, int numberOfRow, int numberOfColoms, String index, String[] indexArray , UnitRow unitRow) {
 		this.numberOfCluster = numberOfCluster;
 		this.numberOfRow = numberOfRow;
 		this.numberOfColoms = numberOfColoms;
+		this.type = index;
 		this.indexArray = indexArray;
 		this.unitRow =unitRow;
 	}
@@ -25,6 +29,10 @@ public class Dataset {
 
 	public int getNumberOfColoms() {
 		return numberOfColoms;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public String[] getIndexArray() {
@@ -43,6 +51,9 @@ public class Dataset {
 		this.numberOfColoms = numberOfColoms;
 	}
 
+	public void setIndex(String type) {
+		this.type = type;
+	}
 
 	public void setIndexArray(String[] indexArray) {
 		this.indexArray = indexArray;
@@ -51,10 +62,12 @@ public class Dataset {
 	public String  getIndexAtPosition(int i){
 		return indexArray[i];
 	}
+
 	public int  getIndexOfIndex(String s){
 		for (int i=0;i<indexArray.length;i++)
 			if(indexArray[i].equals(s))
 				return i;
+
 		return -1;
 	}
 	public double  getMaximumOfIndex(String s){
@@ -85,7 +98,6 @@ public class Dataset {
 	private String[] getPreselectedIndex(){
 		double limit;
 		double[] standardDeviations = getStandardDeviation();
-		int c=(standardDeviations.length > 50)?50:standardDeviations.length;
 		double[] aux = standardDeviations.clone();
 		Arrays.sort(aux);
 		for(int i=0;i<aux.length/2;i++) {
@@ -93,11 +105,11 @@ public class Dataset {
 			aux[i] = aux[aux.length-(i+1)];
 			aux[aux.length-(i+1)] = temp;
 		}
-		limit=aux[c-1];
-		String[] indexPreselected = new String[c];
+		limit=aux[49];
+		String[] indexPreselected = new String[50];
 		for(int i=0, j=0;i<numberOfColoms && j<indexPreselected.length;i++)
 			if (standardDeviations[i]>=limit)
-				indexPreselected[j++]=indexArray[i+1];
+				indexPreselected[j++]=indexArray[i];
 		return indexPreselected;
 	}
 	private double[] getStandardDeviation() {
@@ -137,10 +149,14 @@ public class Dataset {
 		}
 	}
 	public void preselection() {
-		String[] preselectedIndex = getPreselectedIndex();
-		filterDataFromIndex(preselectedIndex);
+		if (indexArray.length>50){
+			String[] preselectedIndex = getPreselectedIndex();
+			filterDataFromIndex(preselectedIndex);
+			indexArray=preselectedIndex;
+		}
 		System.out.println("Variables after preselection:");
-		for(int i=0;i<preselectedIndex.length;i++)
-			System.out.print(preselectedIndex[i]+", ");
+		System.out.print(indexArray[0]);
+		for(int i=1;i<indexArray.length;i++)
+			System.out.print(", "+indexArray[i]);
 	}
 }

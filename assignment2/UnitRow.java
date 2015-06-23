@@ -1,5 +1,6 @@
 package assignment2;
 
+
 public class UnitRow {
 
     private Unit[] units;
@@ -9,7 +10,7 @@ public class UnitRow {
     public UnitRow(int numberOfEntries) {
         units = new Unit[numberOfEntries];
     }
-    
+
     public Unit get(int i) {
     	
         if (i >= numberOfUnits) {
