@@ -1,5 +1,7 @@
 package assignment1;
 
+import java.util.Arrays;
+
 public class UnitRow {
 
     private Unit[] units;
@@ -8,6 +10,12 @@ public class UnitRow {
     
     public UnitRow(int numberOfEntries) {
         units = new Unit[numberOfEntries];
+    }
+    
+    public UnitRow(Unit unit) {
+        units = new Unit[1];
+        add(unit);
+        numberOfUnits = 1;
     }
     
     public Unit get(int i) {
@@ -37,7 +45,10 @@ public class UnitRow {
     }
     
     public void add(Unit i) {
-        if (numberOfUnits < units.length) {
+    	
+        if (numberOfUnits <= units.length) {
+        	 if (numberOfUnits == units.length) 
+        		 inc();
         	units[numberOfUnits++] = i;
         }
         else{
@@ -45,7 +56,9 @@ public class UnitRow {
             System.exit(-1);
         }
     }
-
+    public void inc() {
+    	units = Arrays.copyOf(units, units.length+1);
+    }
     public int size() {
         return numberOfUnits;
     }
