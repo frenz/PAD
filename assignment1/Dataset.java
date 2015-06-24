@@ -63,7 +63,6 @@ public class Dataset {
 		for (int i=0;i<indexArray.length;i++)
 			if(indexArray[i].equals(s))
 				return i;
-			
 		return -1;
 	}
 	public double  getMaximumOfIndex(String s){

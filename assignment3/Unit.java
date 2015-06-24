@@ -34,4 +34,8 @@ public class Unit {
 		numberRow.truncate(length);
 		
 	}
+
+	public double getMax() {
+		return numberRow.getMax();
+	}
 }

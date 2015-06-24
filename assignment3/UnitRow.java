@@ -26,6 +26,9 @@ public class UnitRow {
         }
         return units[i];
     }
+    public Unit[] getArray() {
+        return units;
+    }
     public Double getValueAtPosition(int i, int row) {
     	
         if (row >= numberOfUnits) {
@@ -83,6 +86,10 @@ public class UnitRow {
 			unit.truncate(length);
 		}
 		
+	}
+
+	public Unit getUnit(int i) {
+		return units[i];
 	}
     
 }

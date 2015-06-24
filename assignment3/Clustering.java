@@ -29,7 +29,7 @@ public class Clustering {
 				System.err.println("ERROR:");
 	            System.exit(-1);
 			}
-			result[i] = in.next();;
+			result[i] = in.next();
 		}
 		in.close();
 		return result;
@@ -66,11 +66,17 @@ public class Clustering {
         int numberOfClusters = readInt(in.nextLine());
         int numberOfRows = readInt(in.nextLine());
         int numberOfColoms = readInt(in.nextLine());
-        String[] headers = readStrings(in.nextLine(),  numberOfColoms);
+        String[] all = readStrings(in.nextLine(),  numberOfColoms);
+        String type = all[0];
+        String[] headers = new String[all.length-1];
+        for(int i=0; i<headers.length; i++)
+        	headers[i] = all[i+1];
         UnitRow data = readData(in,  numberOfColoms,  numberOfRows);
-        Dataset dataset = new Dataset(numberOfClusters, numberOfRows, numberOfColoms, headers, data);
+        Dataset dataset = new Dataset(numberOfClusters, numberOfRows, numberOfColoms, type, headers, data);
         dataset.normalization();
         dataset.preselection();
+        ClusterRow clusterRow = new ClusterRow(dataset);
+        clusterRow.printMaxByIndex(0);
 		in.close();
 	}
 

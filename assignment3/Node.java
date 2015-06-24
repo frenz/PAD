@@ -1,29 +1,32 @@
 package assignment3;
 
 public class Node  implements Cluster {
-
-	@Override
+	private Cluster leftChild, rightChild;
+	
 	public int getDepth() {
-		// TODO Auto-generated method stub
-		return 0;
+		int baseSize=1;
+		return leftChild.getDepth()+rightChild.getDepth()+baseSize;
 	}
 
-	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		int baseSize=0;
+		return leftChild.getWidth()+rightChild.getWidth()+baseSize;
 	}
 
-	@Override
 	public UnitRow getUnits() {
-		// TODO Auto-generated method stub
-		return null;
+		UnitRow result = leftChild.getUnits();
+		Unit[] right = rightChild.getUnits().getArray();
+		for(Unit item:right)
+			result.add(item);
+	    return  result;
 	}
 
-	@Override
 	public boolean hasChildren() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	Node(Cluster leftChild, Cluster rightChild){
+	    this.leftChild = leftChild;
+	    this.rightChild = rightChild;
+	}
 }
