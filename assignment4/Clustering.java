@@ -76,7 +76,15 @@ public class Clustering {
         dataset.normalization();
         dataset.preselection();
         ClusterRow clusterRow = new ClusterRow(dataset);
-        clusterRow.getMax();
+		clusterRow.printDistanceTwoCluster();
+		
+        //DistanceMeasure measure = new Euclidean();
+		//DistanceMeasure measure = new Manhattan();
+		//DistanceMeasure measure = new Pearson();
+		
+        //ClusterMethod clusterMethod = new CompleteLinkage(measure);
+		//ClusterMethod clusterMethod = new SingleLinkage(measure);
+		//ClusterMethod clusterMethod = new AverageLinkage(measure);
 		in.close();
 	}
 
