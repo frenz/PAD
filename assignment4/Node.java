@@ -4,8 +4,7 @@ public class Node  implements Cluster {
 	private Cluster leftChild, rightChild;
 	
 	public int getDepth() {
-		int baseSize=1;
-		return leftChild.getDepth()+rightChild.getDepth()+baseSize;
+		return (leftChild.getDepth() >= rightChild.getDepth())?leftChild.getDepth()+1:rightChild.getDepth()+1;
 	}
 
 	public int getWidth() {

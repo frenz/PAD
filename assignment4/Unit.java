@@ -32,11 +32,9 @@ public class Unit {
 
 	public void truncate(int length) {
 		numberRow.truncate(length);
-		
 	}
 
 	public double getMax() {
-		// TODO Auto-generated method stub
 		return numberRow.getMax();
 	}
 }

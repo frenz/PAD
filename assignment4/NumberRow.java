@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 
 public class NumberRow {
-
 	private double[] rowsArray;
 	private int numberOfRows = 0;
 
@@ -46,6 +45,7 @@ public class NumberRow {
 
 	public void truncate(int length) {
 		rowsArray = Arrays.copyOf(rowsArray, length);	
+		numberOfRows=length;
 	}
 
 

@@ -67,14 +67,13 @@ public class Dataset {
 		for (int i=0;i<indexArray.length;i++)
 			if(indexArray[i].equals(s))
 				return i;
-
 		return -1;
 	}
 	public double  getMaximumOfIndex(String s){
 		return getMaximumOfIndex(getIndexOfIndex(s)-1);
 	}
 	public double  getMaximumOfIndex(int value){
-		double max= Double.MIN_VALUE;
+		double max= unitRow.getValueAtPosition(value, 0);
 		for (int i=0;i<numberOfRow;i++)
 			max=unitRow.getValueAtPosition(value, i)>max?unitRow.getValueAtPosition(value, i):max;
 			return max;
@@ -90,8 +89,9 @@ public class Dataset {
 	}
 
 	private void filterDataFromIndex(String[] preselectedIndex) {
-		for(int i=0;i<preselectedIndex.length;i++)
+		for(int i=0;i<preselectedIndex.length;i++){
 			unitRow.moveElement(getIndexOfIndex(preselectedIndex[i]),i);
+		}
 		unitRow.truncate(preselectedIndex.length);
 	}
 
@@ -105,10 +105,10 @@ public class Dataset {
 			aux[i] = aux[aux.length-(i+1)];
 			aux[aux.length-(i+1)] = temp;
 		}
-		limit=aux[49];
+		limit=aux[50];
 		String[] indexPreselected = new String[50];
 		for(int i=0, j=0;i<numberOfColoms && j<indexPreselected.length;i++)
-			if (standardDeviations[i]>=limit)
+			if (standardDeviations[i]>limit)
 				indexPreselected[j++]=indexArray[i];
 		return indexPreselected;
 	}
@@ -153,10 +153,12 @@ public class Dataset {
 			String[] preselectedIndex = getPreselectedIndex();
 			filterDataFromIndex(preselectedIndex);
 			indexArray=preselectedIndex;
+			numberOfColoms=50;
 		}
 		System.out.println("Variables after preselection:");
 		System.out.print(indexArray[0]);
 		for(int i=1;i<indexArray.length;i++)
 			System.out.print(", "+indexArray[i]);
 	}
+
 }

@@ -6,7 +6,7 @@ public class Dataset {
 	private String[] indexArray;
 	private UnitRow unitRow;
 
-	
+
 	Dataset(int numberOfCluster, int numberOfRow, int numberOfColoms, String index, String[] indexArray , UnitRow unitRow) {
 		this.numberOfCluster = numberOfCluster;
 		this.numberOfRow = numberOfRow;
@@ -19,39 +19,39 @@ public class Dataset {
 	public int getNumberOfCluster() {
 		return numberOfCluster;
 	}
-	
+
 	public int getNumberOfRow() {
 		return numberOfRow;
 	}
-	
+
 	public int getNumberOfColoms() {
 		return numberOfColoms;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
-	
+
 	public String[] getIndexArray() {
 		return indexArray;
 	}
-	
+
 	public void setNumberOfCluster(int numberOfCluster) {
 		this.numberOfCluster = numberOfCluster;
 	}
-	
+
 	public void setNumberOfRow(int numberOfRow) {
 		this.numberOfRow = numberOfRow;
 	}
-	
+
 	public void setNumberOfColoms(int numberOfColoms) {
 		this.numberOfColoms = numberOfColoms;
 	}
-	
+
 	public void setIndex(String type) {
 		this.type = type;
 	}
-	
+
 	public void setIndexArray(String[] indexArray) {
 		this.indexArray = indexArray;
 	}
@@ -59,6 +59,7 @@ public class Dataset {
 	public String  getIndexAtPosition(int i){
 		return indexArray[i];
 	}
+
 	public int  getIndexOfIndex(String s){
 		for (int i=0;i<indexArray.length;i++)
 			if(indexArray[i].equals(s))
@@ -66,13 +67,12 @@ public class Dataset {
 		return -1;
 	}
 	public double  getMaximumOfIndex(String s){
-		return getMaximumOfIndex(getIndexOfIndex(s));
+		return getMaximumOfIndex(getIndexOfIndex(s)-1);
 	}
 	public double  getMaximumOfIndex(int value){
-		double max= Double.MIN_VALUE;
+		double max= unitRow.getValueAtPosition(value, 0);
 		for (int i=0;i<numberOfRow;i++)
 			max=unitRow.getValueAtPosition(value, i)>max?unitRow.getValueAtPosition(value, i):max;
-			
-		return max;
+			return max;
 	}
 }
