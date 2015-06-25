@@ -76,7 +76,7 @@ public class Clustering {
         dataset.normalization();
         dataset.preselection();
         ClusterRow clusterRow = new ClusterRow(dataset);
-		clusterRow.printDistanceTwoCluster();
+		//clusterRow.printDistanceTwoCluster();
 		
         //DistanceMeasure measure = new Euclidean();
 		//DistanceMeasure measure = new Manhattan();
