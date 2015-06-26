@@ -1,0 +1,131 @@
+package assignment6;
+
+import java.util.Arrays;
+
+
+
+
+public class ClusterRow {
+	private Cluster[] rowsCluster;
+	private int numberOfRows = 0;
+
+	private int numberOfColoms;
+	private int numberOfRow;
+	private int numberOfCluster;
+
+	public ClusterRow(Dataset data){
+		numberOfColoms  = data.getNumberOfColoms();
+		numberOfRow = data.getNumberOfRow();
+		numberOfCluster = data.getNumberOfCluster();
+		rowsCluster = new Cluster[numberOfRow];
+		for(int i = 0; i < numberOfRow; i++){
+			Cluster leaf = new Leaf(data.getUnit(i));
+			rowsCluster[i]=leaf;
+			numberOfRows=i;
+		}
+	}
+	public ClusterRow(ClusterRow clusterRow){
+		numberOfColoms  = clusterRow.getNumberOfColoms();
+		numberOfRow = clusterRow.getNumberOfRow();
+		numberOfCluster = clusterRow.getNumberOfCluster();
+		rowsCluster = clusterRow.getRowsCluster();
+		numberOfRows=clusterRow.getActualNumberOfCluster();
+	}
+	public double getMax(){
+		double max = -Double.MAX_VALUE;
+		for(int i = 0; i < numberOfRows; i++)
+			max = max > getMaxByIndex(i)?max:getMaxByIndex(i);
+			return max;
+	}
+
+	public double getMaxByIndex(int i){
+		double max = -Double.MAX_VALUE;
+		for(int j = 0; j < rowsCluster[i].getUnits().size(); j++)
+			max = (max > rowsCluster[i].getUnits().getUnit(j).getMax())?max:rowsCluster[i].getUnits().getUnit(j).getMax();
+		return max;
+	}
+	
+	public int getNumberOfColoms(){
+		return numberOfColoms;
+	}
+	
+	public int getNumberOfCluster(){
+		return numberOfCluster;
+	}
+	
+	public int getNumberOfRow(){
+		return numberOfRow;
+	}
+	
+	public  Cluster[] getRowsCluster(){
+		return rowsCluster;
+	}
+	
+	public int getActualNumberOfCluster(){
+		return numberOfRows;
+	}
+	
+	public void printMax(){
+		for(int i = 0; i < numberOfRows; i++)
+			printMaxByIndex(i);
+	}
+	
+	public Cluster getCluster(int i) {
+		return rowsCluster[i];
+	}
+
+	
+
+	public void printMaxByIndex(int i){
+		System.out.printf("The cluster number %d has maximum value: %f \n",i, getMaxByIndex(i));
+	}
+	public void printDistanceTwoCluster() {
+		SingleLinkage singleLinkage;
+		CompleteLinkage completeLinkage;
+		AverageLinkage averageLinkage;
+
+		singleLinkage = new SingleLinkage( new Euclidean());
+		System.out.printf("Euclidean + SingleLinkage:	%.6f\n",singleLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		averageLinkage = new AverageLinkage( new Euclidean());
+		System.out.printf("Euclidean + AverageLinkage:	%.6f\n",averageLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		completeLinkage = new CompleteLinkage( new Euclidean());
+		System.out.printf("Euclidean + CompleteLinkage:	%.6f\n",completeLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		singleLinkage = new SingleLinkage( new Manhattan());
+		System.out.printf("Manhattan + SingleLinkage:	%.6f\n",singleLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		averageLinkage = new AverageLinkage( new Manhattan());
+		System.out.printf("Manhattan + AverageLinkage:	%.6f\n",averageLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		completeLinkage = new CompleteLinkage( new Manhattan());
+		System.out.printf("Manhattan + CompleteLinkage:	%.6f\n",completeLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		singleLinkage = new SingleLinkage( new Pearson());
+		System.out.printf("Pearson + SingleLinkage:	%.6f\n",singleLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		averageLinkage = new AverageLinkage( new Pearson());
+		System.out.printf("Pearson + AverageLinkage:	%.6f\n",averageLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+		
+		completeLinkage = new CompleteLinkage( new Pearson());
+		System.out.printf("Pearson + CompleteLinkage:	%.6f\n",completeLinkage.calculateDistance(rowsCluster[0], rowsCluster[1]));
+	}
+	
+
+	
+	
+	
+	public void mergeClusters(int cluster1, int cluster2) {
+		int minIndex = cluster1<cluster2?cluster1:cluster2, maxIndex = cluster1>cluster2?cluster1:cluster2;
+		rowsCluster[minIndex] = new Node(rowsCluster[minIndex], rowsCluster[maxIndex]);
+		rowsCluster[maxIndex] = rowsCluster[rowsCluster.length-1];
+		truncate(rowsCluster.length-1);
+	}
+	
+	public void truncate(int i){
+		this.rowsCluster=Arrays.copyOf(rowsCluster, i);
+		this.numberOfRows--;
+	}
+
+}
