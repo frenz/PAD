@@ -2,13 +2,22 @@ package assignment5;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+
 import ui.UIAuxiliaryMethods;
+import ui.Colour;
+import ui.UserInterfaceFactory;
+import ui.DrawUserInterface;
 
 
 public class Clustering {
+	
+	private final int WIDTH_UI = 1024;
+	private final int HEIGHT_UI = 768;
+	DrawUserInterface userUI;
 	PrintStream out;
 	Clustering() {
 		UIAuxiliaryMethods.askUserForInput();
+		userUI = UserInterfaceFactory.getDrawUI(WIDTH_UI, HEIGHT_UI);
 		out = new PrintStream(System.out);
 	}
 	private static int readInt(String input) {
@@ -76,15 +85,23 @@ public class Clustering {
         dataset.normalization();
         dataset.preselection();
         ClusterRow clusterRow = new ClusterRow(dataset);
-		//clusterRow.printDistanceTwoCluster();
-		
-        //DistanceMeasure measure = new Euclidean();
+        DistanceMeasure measure = new Euclidean();
 		//DistanceMeasure measure = new Manhattan();
 		//DistanceMeasure measure = new Pearson();
 		
         //ClusterMethod clusterMethod = new CompleteLinkage(measure);
 		//ClusterMethod clusterMethod = new SingleLinkage(measure);
-		//ClusterMethod clusterMethod = new AverageLinkage(measure);
+		ClusterMethod clusterMethod = new AverageLinkage(measure);
+		Clusterer clusterer = new Clusterer(clusterMethod, clusterRow, userUI);
+		for(int i=0;i<27;i++){
+			clusterer.nextStep();
+			try {
+			    Thread.sleep(100);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
+
 		in.close();
 	}
 

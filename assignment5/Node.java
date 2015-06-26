@@ -1,5 +1,7 @@
 package assignment5;
 
+
+
 public class Node  implements Cluster {
 	private Cluster leftChild, rightChild;
 	
@@ -8,8 +10,7 @@ public class Node  implements Cluster {
 	}
 
 	public int getWidth() {
-		int baseSize=0;
-		return leftChild.getWidth()+rightChild.getWidth()+baseSize;
+		return leftChild.getWidth()+rightChild.getWidth();
 	}
 
 	public UnitRow getUnits() {
@@ -24,8 +25,9 @@ public class Node  implements Cluster {
 		return false;
 	}
 	
-	Node(Cluster leftChild, Cluster rightChild){
-	    this.leftChild = leftChild;
-	    this.rightChild = rightChild;
+
+	public Node(Cluster cluster, Cluster cluster2) {
+	    leftChild = cluster;
+	    rightChild = cluster2;
 	}
 }
