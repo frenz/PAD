@@ -11,7 +11,8 @@ public class Clusterer {
 
 
 	Clusterer(ClusterMethod method, ClusterRow clusterRow, DrawUserInterface userUI){
-		view = new Cartesian(userUI);
+		view = new Dendogram(userUI,clusterRow);
+//		view = new Cartesian(userUI);
 		steps = clusterRow.getActualNumberOfCluster() - clusterRow.getNumberOfCluster() +1;
 		this.clusterRow = new ClusterRow[steps];
 		this.clusterRow[0] = clusterRow;

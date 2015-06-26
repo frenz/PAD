@@ -22,12 +22,16 @@ public class Node  implements Cluster {
 	}
 
 	public boolean hasChildren() {
-		return false;
+		return true;
 	}
 	
 
 	public Node(Cluster cluster, Cluster cluster2) {
 	    leftChild = cluster;
 	    rightChild = cluster2;
+	}
+
+	public Cluster getChild(int i) {
+		return (i<1)?leftChild:rightChild;
 	}
 }
